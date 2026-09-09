@@ -4,6 +4,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
+import { NotifyContactForm } from "@/components/notify-contact-form"
 import { cn } from "@/lib/utils"
 import {
   Search,
@@ -105,6 +106,8 @@ export default function SearchIntroPage() {
         <Gamepad2 className="size-4 text-accent" />
         Пока ищем — можно поиграть
       </p>
+
+      <NotifyContactForm className="mt-10" />
     </motion.div>
   )
 }
