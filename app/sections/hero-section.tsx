@@ -34,11 +34,30 @@ export function HeroSection() {
             Помощь репетитора
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-            Живой педагог в кармане. Без поиска, без записей, без обязательств.
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            Для ОГЭ, ЕГЭ и сложных тем. Живой педагог в кармане — без поиска,
+            без записей, без обязательств.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Badge
+              variant="outline"
+              className="rounded-full border-primary/30 px-4 py-2 text-base font-semibold text-primary"
+            >
+              ОГЭ
+            </Badge>
+            <Badge
+              variant="outline"
+              className="rounded-full border-primary/30 px-4 py-2 text-base font-semibold text-primary"
+            >
+              ЕГЭ
+            </Badge>
+            <Badge
+              variant="outline"
+              className="rounded-full border-primary/30 px-4 py-2 text-base font-semibold text-primary"
+            >
+              Сложные темы
+            </Badge>
             <Badge
               variant="outline"
               className="gap-2 rounded-full border-accent/30 px-4 py-2 text-base font-semibold text-accent"

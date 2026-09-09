@@ -3,6 +3,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 
 const oceanic = localFont({
@@ -29,9 +30,9 @@ const factorA = localFont({
 })
 
 export const metadata = {
-  title: "Экстренная помощь репетитора — решим задачу за 5 минут",
+  title: "Экстренная помощь репетитора — ОГЭ, ЕГЭ и сложные темы",
   description:
-    "Живой педагог в кармане. Без поиска, без записей, без обязательств. Первое занятие бесплатно.",
+    "Живой педагог в кармане для ОГЭ, ЕГЭ и сложных тем. Без поиска, без записей, без обязательств. Первое занятие бесплатно.",
 }
 
 export default function RootLayout({
@@ -56,8 +57,10 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="top-center" richColors />
+          <TooltipProvider>
+            {children}
+            <Toaster position="top-center" richColors />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
