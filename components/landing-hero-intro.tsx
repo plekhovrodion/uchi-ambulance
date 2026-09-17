@@ -24,7 +24,7 @@ export function LandingHeroIntro() {
     <>
       <div className="relative flex w-full min-w-0 flex-col items-center gap-4 text-center md:items-start md:text-left">
         <motion.h1
-          className="w-full max-w-full font-heading text-[42px] leading-none text-white uppercase min-[400px]:text-[56px] md:text-[72px] xl:text-[90px]"
+          className="w-full max-w-full font-heading text-[56px] leading-none text-white uppercase md:text-[72px] xl:text-[90px]"
           {...fadeUp(0.05)}
         >
           Репетитор

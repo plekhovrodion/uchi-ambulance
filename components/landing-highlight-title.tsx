@@ -18,7 +18,7 @@ export function LandingHighlightTitle({
   return (
     <Tag
       className={cn(
-        "text-center font-heading text-[40px] leading-none uppercase md:text-[64px] xl:text-[80px]",
+        "text-center font-heading text-[48px] leading-none uppercase md:text-[64px] xl:text-[80px]",
         className
       )}
     >

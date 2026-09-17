@@ -16,7 +16,7 @@ export function CTASection() {
 
       <div className="relative mx-auto flex w-full max-w-[1152px] flex-col items-center">
         <LandingInView>
-          <h2 className="mb-6 text-center font-heading text-[56px] leading-none text-white uppercase md:text-[72px] xl:mb-10 xl:text-[90px]">
+          <h2 className="mb-6 text-center font-heading text-[48px] leading-none text-white uppercase md:text-[72px] xl:mb-10 xl:text-[90px]">
             первое занятие
             <br />
             <span className="relative inline-block">

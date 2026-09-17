@@ -18,11 +18,11 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="relative mx-auto flex w-full min-w-0 max-w-[1152px] flex-col items-center gap-6 md:min-h-[560px] md:items-start md:justify-between md:gap-0 xl:min-h-[520px]">
+      <div className="relative z-10 mx-auto flex w-full min-w-0 max-w-[1152px] shrink-0 flex-col items-center gap-6 md:min-h-[560px] md:items-start md:justify-between md:gap-0 xl:min-h-[520px]">
         <LandingHeroIntro />
       </div>
 
-      <div className="pointer-events-none relative mt-auto h-[min(350px,42svh)] w-full shrink-0 md:absolute md:right-[-339px] md:bottom-0 md:left-auto md:mt-0 md:h-[560px] md:w-[900px] xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
+      <div className="pointer-events-none relative min-h-0 w-full flex-1 overflow-hidden md:absolute md:inset-auto md:right-[-339px] md:bottom-0 md:left-auto md:h-[560px] md:w-[900px] md:flex-none md:overflow-visible xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
         <div className="landing-hero-photo relative mx-auto h-full w-[560px] max-w-none translate-x-8 md:mx-0 md:w-full md:translate-x-0">
           <Image
             src="/landing/hero.avif"
@@ -30,7 +30,7 @@ export function HeroSection() {
             fill
             sizes="(min-width: 1280px) 1024px, (min-width: 768px) 900px, 560px"
             priority
-            className="-scale-x-100 object-cover object-bottom"
+            className="-scale-x-100 object-cover object-top md:object-bottom"
           />
         </div>
       </div>
