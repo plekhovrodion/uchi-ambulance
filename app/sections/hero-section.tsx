@@ -22,8 +22,8 @@ export function HeroSection() {
         <LandingHeroIntro />
       </div>
 
-      <div className="pointer-events-none relative min-h-0 flex-1 overflow-visible md:contents">
-        <div className="absolute inset-x-0 top-0 -bottom-14 overflow-visible md:inset-auto md:right-[-339px] md:bottom-0 md:top-auto md:h-[560px] md:w-[900px] xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
+      <div className="pointer-events-none relative min-h-0 flex-1 md:contents">
+        <div className="absolute top-0 -bottom-14 left-1/2 w-screen -translate-x-1/2 overflow-x-clip md:inset-auto md:right-[-339px] md:bottom-0 md:left-auto md:top-auto md:h-[560px] md:w-[900px] md:translate-x-0 md:overflow-visible xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
           <div className="relative h-full w-[155%] max-w-none -translate-x-[18%] md:w-full md:translate-x-0">
             <div className="landing-hero-photo relative h-full w-full">
               <Image

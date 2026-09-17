@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function LandingHeader() {
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex flex-col items-center">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[100] flex w-full max-w-[100vw] flex-col items-center overflow-x-clip">
       <div className="h-2 w-full bg-white" />
       <div className="relative h-8 w-[170px]">
         <Image
