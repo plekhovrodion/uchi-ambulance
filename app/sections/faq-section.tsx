@@ -70,7 +70,7 @@ export function FAQSection() {
   const lenis = useLenis()
 
   return (
-    <section className="relative z-50 -mt-6 overflow-hidden rounded-t-[24px] bg-white px-5 pt-20 pb-6 md:px-10 md:pt-24 xl:px-16 xl:pt-32">
+    <section className="sticky top-0 z-50 -mt-6 overflow-hidden rounded-t-[24px] bg-white px-5 pt-20 pb-6 md:px-10 md:pt-24 xl:px-16 xl:pt-32">
       <div className="mx-auto flex w-full max-w-[800px] flex-col items-center">
         <LandingInView className="mb-6 xl:mb-10">
           <LandingHighlightTitle

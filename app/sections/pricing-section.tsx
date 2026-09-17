@@ -62,14 +62,14 @@ export function PricingSection() {
                 />
               ) : null}
               <div className="flex w-full items-end gap-1">
-                <p className="min-w-0 flex-1 font-sans text-[20px] leading-normal font-bold">
+                <p className="min-w-0 flex-1 font-sans text-[16px] leading-normal font-bold md:text-[20px]">
                   {plan.name}
                 </p>
-                <p className="shrink-0 font-sans text-[18px] leading-normal">
+                <p className="shrink-0 font-sans text-[16px] leading-normal md:text-[18px]">
                   {plan.lessons}
                 </p>
               </div>
-              <p className="font-heading text-[56px] leading-none">
+              <p className="font-heading text-[48px] leading-none">
                 {plan.price}
               </p>
               <SearchEntryLink

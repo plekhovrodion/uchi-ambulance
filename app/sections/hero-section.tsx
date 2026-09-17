@@ -4,9 +4,9 @@ import { LandingHeroIntro } from "@/components/landing-hero-intro"
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-x-hidden bg-landing-purple px-5 pt-20 pb-[280px] md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]">
-      <div className="pointer-events-none absolute top-[186px] left-1/2 h-[408px] w-[1864px] max-w-none -translate-x-[calc(50%+480px)] md:top-[214px] md:h-[586px] md:w-[2858px] md:-translate-x-[calc(50%+435px)] xl:top-[248px] xl:h-[472px] xl:w-[2299px] xl:-translate-x-1/2">
-        <div className="landing-hero-union h-full w-full">
+    <section className="sticky top-0 z-0 flex h-svh flex-col overflow-hidden bg-landing-purple px-5 pt-20 md:block md:h-auto md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="landing-hero-union absolute top-[186px] left-1/2 h-[408px] w-[1864px] max-w-none -translate-x-[calc(50%+480px)] md:top-[214px] md:h-[586px] md:w-[2858px] md:-translate-x-[calc(50%+435px)] xl:top-[248px] xl:h-[472px] xl:w-[2299px] xl:-translate-x-1/2">
           <Image
             src="/landing/hero-union.svg"
             alt=""
@@ -22,10 +22,10 @@ export function HeroSection() {
         <LandingHeroIntro />
       </div>
 
-      <div className="pointer-events-none absolute -bottom-[50px] left-[calc(50%+32px)] h-[350px] w-[560px] -translate-x-1/2 md:right-[-339px] md:bottom-0 md:left-auto md:h-[560px] md:w-[900px] md:translate-x-0 xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
-        <div className="landing-hero-photo relative h-full w-full">
+      <div className="pointer-events-none relative mt-auto h-[min(350px,42svh)] w-full shrink-0 md:absolute md:right-[-339px] md:bottom-0 md:left-auto md:mt-0 md:h-[560px] md:w-[900px] xl:right-auto xl:bottom-6 xl:left-[calc(50%+231px)] xl:h-[640px] xl:w-[1024px] xl:-translate-x-1/2">
+        <div className="landing-hero-photo relative mx-auto h-full w-[560px] max-w-none translate-x-8 md:mx-0 md:w-full md:translate-x-0">
           <Image
-            src="/landing/hero.png"
+            src="/landing/hero.avif"
             alt=""
             fill
             sizes="(min-width: 1280px) 1024px, (min-width: 768px) 900px, 560px"

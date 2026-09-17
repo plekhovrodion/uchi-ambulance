@@ -5,7 +5,7 @@ import { LandingInView } from "@/components/landing-in-view"
 
 export function CTASection() {
   return (
-    <section className="relative z-40 -mt-6 overflow-hidden rounded-t-[24px] bg-landing-purple px-5 pt-20 pb-24 md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]">
+    <section className="sticky top-0 z-40 -mt-6 overflow-hidden rounded-t-[24px] bg-landing-purple px-5 pt-20 pb-24 md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]">
       <Image
         src="/landing/cta-union.svg"
         alt=""

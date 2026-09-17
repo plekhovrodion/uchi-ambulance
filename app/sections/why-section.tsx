@@ -9,19 +9,19 @@ const cards = [
   {
     title: "Дешевле в 4 раза",
     body: "Одно занятие с репетитором от 1400 ₽. Экспресс-репетитор от 250 ₽ за занятие",
-    image: "/landing/why-1.png",
+    image: "/landing/why-1.avif",
     dark: false,
   },
   {
     title: "Без ожидания",
     body: "Репетитор подключится за 5 минут",
-    image: "/landing/why-2.png",
+    image: "/landing/why-2.avif",
     dark: false,
   },
   {
     title: "Свободный график",
     body: "Занимайся когда удобно",
-    image: "/landing/why-3.png",
+    image: "/landing/why-3.avif",
     dark: true,
   },
 ] as const
