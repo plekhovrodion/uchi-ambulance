@@ -1,123 +1,89 @@
-"use client"
+import Image from "next/image"
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { buttonVariants } from "@/components/ui/button"
+import { LandingInView } from "@/components/landing-in-view"
+import { SearchEntryLink } from "@/components/search-entry-link"
 import { cn } from "@/lib/utils"
-import { Check } from "lucide-react"
 
 const plans = [
   {
-    name: "Первое пробное занятие",
-    price: "Бесплатно",
-    oldPrice: "-200₽",
-    description: "Оцените сервис без обязательств.",
-    cta: "Попробовать",
-    href: "/search",
-    primary: true,
+    name: "1 месяц",
+    lessons: "4 занятия",
+    price: "1 500 ₽",
+    featured: false,
+    notch: true,
   },
   {
-    name: "1 занятие",
-    price: "XX ₽",
-    description: "Одна конкретная задача или тема.",
-    cta: "Купить",
-    href: "#",
-    primary: false,
+    name: "3 месяца",
+    lessons: "24 занятия",
+    price: "5 700 ₽",
+    featured: true,
+    notch: false,
   },
   {
-    name: "20 занятий",
-    price: "XXX ₽",
-    description: "Выгодный пакет для постоянной поддержки.",
-    cta: "Купить",
-    href: "#",
-    primary: false,
+    name: "6 месяцев",
+    lessons: "48 занятий",
+    price: "10 000 ₽",
+    featured: false,
+    notch: false,
   },
-]
+] as const
 
 export function PricingSection() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="text-3xl leading-[0.95] tracking-tight sm:text-4xl">
+    <section
+      id="pricing"
+      className="relative z-30 -mt-6 overflow-hidden rounded-t-[24px] bg-white px-5 pt-20 pb-24 md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]"
+    >
+      <div className="mx-auto w-full max-w-[1152px]">
+        <LandingInView>
+          <h2 className="mb-6 text-center font-heading text-[48px] leading-none text-landing-ink uppercase md:text-[64px] xl:mb-10 xl:text-[80px]">
             Сколько стоит?
           </h2>
-        </motion.div>
+        </LandingInView>
 
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="flex flex-col gap-4 md:flex-row">
           {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+            <LandingInView key={plan.name} delay={index * 0.08} className="flex flex-1">
+            <article
+              className={cn(
+                "relative flex w-full flex-1 flex-col items-start gap-6 rounded-3xl p-6",
+                plan.featured
+                  ? "bg-landing-pink text-white"
+                  : "bg-landing-soft-purple text-landing-ink"
+              )}
             >
-              <Card
-                className={`flex h-full flex-col border-border/50 ${
-                  plan.primary
-                    ? "relative overflow-visible bg-primary/5 ring-1 ring-primary/30"
-                    : "bg-card/60 backdrop-blur"
-                }`}
-              >
-                {plan.primary && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-                    Попробовать бесплатно
-                  </div>
+              {plan.notch ? (
+                <Image
+                  src="/landing/pricing-notch.svg"
+                  alt=""
+                  width={80}
+                  height={22}
+                  className="absolute -top-6 right-8 h-[22px] w-20"
+                />
+              ) : null}
+              <div className="flex w-full items-end gap-1">
+                <p className="min-w-0 flex-1 font-sans text-[20px] leading-normal font-bold">
+                  {plan.name}
+                </p>
+                <p className="shrink-0 font-sans text-[18px] leading-normal">
+                  {plan.lessons}
+                </p>
+              </div>
+              <p className="font-heading text-[56px] leading-none">
+                {plan.price}
+              </p>
+              <SearchEntryLink
+                className={cn(
+                  "flex w-full items-center justify-center rounded-lg px-6 py-4 font-sans text-[16px] leading-normal font-bold",
+                  plan.featured
+                    ? "bg-white text-landing-pink"
+                    : "bg-landing-purple text-white"
                 )}
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg font-semibold text-muted-foreground">
-                    {plan.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="flex-1">
-                  <div className="flex items-baseline gap-3">
-                    <span className="text-4xl font-bold tracking-tight">
-                      {plan.price}
-                    </span>
-                    {plan.oldPrice && (
-                      <span className="text-lg text-muted-foreground line-through">
-                        {plan.oldPrice}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-3 text-muted-foreground">{plan.description}</p>
-                  <ul className="mt-4 space-y-2">
-                    <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check className="size-4 text-primary" />
-                      Живой педагог онлайн
-                    </li>
-                    <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Check className="size-4 text-primary" />
-                      Разбор с объяснением
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Link
-                    href={plan.href}
-                    className={cn(
-                      buttonVariants({
-                        variant: plan.primary ? "default" : "outline",
-                      }),
-                      "w-full rounded-full",
-                      plan.primary
-                        ? "bg-primary text-primary-foreground hover:bg-primary/80"
-                        : "border-primary/30 hover:bg-primary/10"
-                    )}
-                  >
-                    {plan.cta}
-                  </Link>
-                </CardFooter>
-              </Card>
-            </motion.div>
+              >
+                К оплате
+              </SearchEntryLink>
+            </article>
+            </LandingInView>
           ))}
         </div>
       </div>

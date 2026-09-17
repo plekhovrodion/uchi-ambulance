@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="47.8061" height="47.8055" viewBox="0 0 47.8061 47.8055" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icon">
+<ellipse id="Ellipse 30473" cx="23.903" cy="23.9027" rx="23.903" ry="23.9027" fill="#5846F5"/>
+<g id="Mask group">
+<mask id="mask0_0_27" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="5" width="37" height="37">
+<ellipse id="Ellipse 30475" cx="23.9097" cy="23.8983" rx="17.9273" ry="17.927" fill="white"/>
+</mask>
+<g mask="url(#mask0_0_27)">
+<ellipse id="Ellipse 30482" cx="23.9097" cy="23.8983" rx="17.9273" ry="17.927" fill="white"/>
+<path id="Subtract" d="M15.1006 11.3346C16.751 11.3346 18.3171 11.6952 19.7266 12.3385L18.8633 15.5621C18.4589 17.0712 18.257 17.8263 18.6709 18.2408C19.0852 18.6552 19.8404 18.4538 21.3496 18.0494L24.8701 17.1051C25.7519 18.7015 26.2558 20.5361 26.2558 22.4889C26.2558 28.6494 21.2612 33.6441 15.1006 33.6441C8.94017 33.6439 3.94628 28.6492 3.94628 22.4889C3.94644 16.3286 8.94027 11.3348 15.1006 11.3346Z" fill="#332B44"/>
+<rect id="Icon Background" width="44.0214" height="24.6995" transform="matrix(0.984808 -0.173646 0.17365 0.984807 0.0401487 37.2728)" fill="#5846F5"/>
+</g>
+</g>
+</g>
+</svg>

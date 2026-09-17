@@ -1,40 +1,36 @@
-"use client"
+import Image from "next/image"
 
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { Zap } from "lucide-react"
+import { LandingCtaButton } from "@/components/landing-cta-button"
+import { LandingInView } from "@/components/landing-in-view"
 
 export function CTASection() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="container mx-auto max-w-4xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 to-accent/10 p-10 text-center md:p-16"
-        >
-          <div className="absolute inset-0 -z-10 bg-card/40 backdrop-blur" />
-          <h2 className="text-3xl leading-[0.95] tracking-tight sm:text-4xl md:text-5xl">
-            Получи объяснение сейчас
+    <section className="relative z-40 -mt-6 overflow-hidden rounded-t-[24px] bg-landing-purple px-5 pt-20 pb-24 md:px-10 md:pt-24 md:pb-[120px] xl:px-16 xl:pt-32 xl:pb-[152px]">
+      <Image
+        src="/landing/cta-union.svg"
+        alt=""
+        width={2299}
+        height={472}
+        className="pointer-events-none absolute top-[100px] left-1/2 h-[472px] w-[2299px] max-w-none -translate-x-1/2"
+      />
+
+      <div className="relative mx-auto flex w-full max-w-[1152px] flex-col items-center">
+        <LandingInView>
+          <h2 className="mb-6 text-center font-heading text-[56px] leading-none text-white uppercase md:text-[72px] xl:mb-10 xl:text-[90px]">
+            первое занятие
+            <br />
+            <span className="relative inline-block">
+              <span
+                aria-hidden
+                className="absolute -inset-x-2 top-[6%] bottom-[2%] -rotate-1 bg-landing-pink"
+              />
+              <span className="relative">бесплатно</span>
+            </span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-lg text-muted-foreground">
-            Первое занятие бесплатно. Никаких обязательств и долгих регистраций.
-          </p>
-          <Link
-            href="/search"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "mt-8 h-14 gap-2 rounded-full bg-primary px-8 text-lg font-semibold text-primary-foreground shadow-lg shadow-primary/20 hover:bg-primary/80"
-            )}
-          >
-            <Zap className="size-5" />
-            Попробовать бесплатно
-          </Link>
-        </motion.div>
+        </LandingInView>
+        <LandingInView delay={0.12}>
+          <LandingCtaButton />
+        </LandingInView>
       </div>
     </section>
   )

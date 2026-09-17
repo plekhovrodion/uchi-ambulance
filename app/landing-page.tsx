@@ -1,33 +1,27 @@
-"use client"
+import { LandingHeader } from "@/components/landing-header"
+import { LandingSmoothScroll } from "@/components/landing-smooth-scroll"
 
-import { Header } from "./sections/header"
 import { HeroSection } from "./sections/hero-section"
-import { AudienceSection } from "./sections/audience-section"
-import { FitSection } from "./sections/fit-section"
-import { SavingsSection } from "./sections/savings-section"
-import { CompareSection } from "./sections/compare-section"
-import { StepsSection } from "./sections/steps-section"
-import { TestimonialsSection } from "./sections/testimonials-section"
-import { FAQSection } from "./sections/faq-section"
+import { WhySection } from "./sections/why-section"
+import { HowSection } from "./sections/how-section"
 import { PricingSection } from "./sections/pricing-section"
 import { CTASection } from "./sections/cta-section"
+import { FAQSection } from "./sections/faq-section"
 import { Footer } from "./sections/footer"
 
 export function LandingPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <HeroSection />
-      <AudienceSection />
-      <FitSection />
-      <SavingsSection />
-      <CompareSection />
-      <StepsSection />
-      <TestimonialsSection />
-      <FAQSection />
-      <PricingSection />
-      <CTASection />
-      <Footer />
-    </main>
+    <LandingSmoothScroll>
+      <LandingHeader />
+      <main className="min-h-screen bg-landing-purple">
+        <HeroSection />
+        <WhySection />
+        <HowSection />
+        <PricingSection />
+        <CTASection />
+        <FAQSection />
+        <Footer />
+      </main>
+    </LandingSmoothScroll>
   )
 }

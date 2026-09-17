@@ -1,84 +1,121 @@
 "use client"
 
-import { motion } from "framer-motion"
+import Image from "next/image"
+import { useLenis } from "lenis/react"
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { LandingHighlightTitle } from "@/components/landing-highlight-title"
+import { LandingInView } from "@/components/landing-in-view"
+import { pressScaleClass } from "@/lib/press-scale"
+import { cn } from "@/lib/utils"
 
 const faqs = [
   {
-    question: "Это для ОГЭ и ЕГЭ?",
+    question: "Как быстро подключается педагог?",
     answer:
-      "Да. И для экзаменов, и для сложных тем в течение года. Разбираем конкретное задание — прототип, вторую часть, домашку — а не весь курс.",
+      "Обычно в течение 5 минут в часы работы. Если все специалисты заняты, предложим оставить заявку",
   },
   {
-    question: "Это замена обычному репетитору?",
+    question: "Это заменит репетитора?",
     answer:
-      "Нет, это скорая помощь. Репетитор нужен на длинную дистанцию. Мы — когда застрял прямо сейчас и нельзя ждать до четверга.",
+      "Нет. Репетитор — для системной подготовки. Мы — для конкретной задачи здесь и сейчас. Это дополнение, а не замена",
   },
   {
-    question: "А если я не пойму объяснение?",
-    answer:
-      "Педагог переформулирует столько раз, сколько нужно. Главное — чтобы ты понял.",
+    question: "Можно вернуть деньги?",
+    answer: "Да, если занятие не состоялось или качество не устроило",
   },
   {
-    question: "Нужно что-то скачивать?",
-    answer: "Нет. Всё работает в браузере. Открыл — и поехали.",
-  },
-  {
-    question: "Это дорого?",
+    question: "Педагог может дать свои контакты?",
     answer:
-      "Платишь только за разбор, когда застрял — не за абонемент на месяц. Первое занятие бесплатно.",
-  },
-  {
-    question: "Вдруг педагог не сможет решить?",
-    answer:
-      "У нас математики, физики, русисты и англичане. Найдут подход к любой теме.",
+      "Нет. Все коммуникации проходят только через платформу. Педагогам запрещено передавать личные контакты",
   },
 ]
 
-export function FAQSection() {
+function FaqIcon() {
   return (
-    <section className="py-20 md:py-28">
-      <div className="container mx-auto max-w-3xl px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="text-3xl leading-[0.95] tracking-tight sm:text-4xl">
-            Популярные вопросы
-          </h2>
-        </motion.div>
+    <span className="relative size-6 shrink-0">
+      <span className="absolute inset-0 group-aria-expanded/accordion-trigger:hidden">
+        <Image
+          src="/landing/faq-minus.svg"
+          alt=""
+          width={24}
+          height={24}
+          className="absolute inset-0 size-6"
+        />
+        <Image
+          src="/landing/faq-minus.svg"
+          alt=""
+          width={24}
+          height={24}
+          className="absolute inset-0 size-6 rotate-90"
+        />
+      </span>
+      <Image
+        src="/landing/faq-minus.svg"
+        alt=""
+        width={24}
+        height={24}
+        className="absolute inset-0 hidden size-6 group-aria-expanded/accordion-trigger:block"
+      />
+    </span>
+  )
+}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <Accordion defaultValue={[]} className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border-border/50"
-              >
-                <AccordionTrigger className="text-left text-lg font-semibold hover:text-primary hover:no-underline">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+export function FAQSection() {
+  const lenis = useLenis()
+
+  return (
+    <section className="relative z-50 -mt-6 overflow-hidden rounded-t-[24px] bg-white px-5 pt-20 pb-6 md:px-10 md:pt-24 xl:px-16 xl:pt-32">
+      <div className="mx-auto flex w-full max-w-[800px] flex-col items-center">
+        <LandingInView className="mb-6 xl:mb-10">
+          <LandingHighlightTitle
+            before="Популярные"
+            highlight="вопросы"
+            className="text-landing-ink"
+          />
+        </LandingInView>
+
+        <Accordion multiple className="w-full overflow-hidden rounded-[32px]">
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={faq.question}
+              value={`item-${index}`}
+              className="border-none"
+            >
+              <AccordionTrigger className="items-start gap-4 rounded-3xl px-6 py-4 text-left font-sans text-[20px] leading-normal font-bold text-landing-ink hover:no-underline **:data-[slot=accordion-trigger-icon]:hidden">
+                {faq.question}
+                <FaqIcon />
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-4 font-sans text-[18px] leading-normal text-landing-ink">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+
+        <div className="pt-8">
+          <button
+            type="button"
+            onClick={() => {
+              if (lenis) {
+                lenis.scrollTo(0, { duration: 1.4 })
+                return
+              }
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }}
+            className={cn(
+              "rounded-lg bg-white px-6 py-4 font-sans text-[16px] leading-normal font-bold text-landing-pink",
+              pressScaleClass
+            )}
+          >
+            Вернуться наверх
+          </button>
+        </div>
       </div>
     </section>
   )

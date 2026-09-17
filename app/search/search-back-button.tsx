@@ -1,12 +1,17 @@
 "use client"
 
 import Link from "next/link"
-import { useSelectedLayoutSegment } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { ArrowLeft } from "lucide-react"
 
+function backHref(pathname: string) {
+  if (pathname === "/search/loading") return "/"
+  return "/"
+}
+
 export function SearchBackButton() {
-  const segment = useSelectedLayoutSegment()
-  const href = segment ? "/search" : "/"
+  const pathname = usePathname()
+  const href = backHref(pathname)
 
   return (
     <Link

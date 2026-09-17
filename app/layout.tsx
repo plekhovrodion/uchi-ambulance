@@ -2,6 +2,7 @@ import localFont from "next/font/local"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SearchTransitionOverlay } from "@/components/search-transition-overlay"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
@@ -30,9 +31,9 @@ const factorA = localFont({
 })
 
 export const metadata = {
-  title: "Экстренная помощь репетитора — ОГЭ, ЕГЭ и сложные темы",
+  title: "Репетитор по ОГЭ и ЕГЭ за 5 минут — экспресс-репетитор Учи.ру",
   description:
-    "Живой педагог в кармане для ОГЭ, ЕГЭ и сложных тем. Без поиска, без записей, без обязательств. Первое занятие бесплатно.",
+    "За 20–30 минут репетитор объяснит решение конкретной задачи. Без записи, от 250 ₽ за занятие. Первое занятие бесплатно.",
 }
 
 export default function RootLayout({
@@ -59,6 +60,7 @@ export default function RootLayout({
         >
           <TooltipProvider>
             {children}
+            <SearchTransitionOverlay />
             <Toaster position="top-center" richColors />
           </TooltipProvider>
         </ThemeProvider>

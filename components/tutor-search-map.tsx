@@ -1,34 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { GraduationCap, MapPin, Radar } from "lucide-react"
-
-interface TutorPin {
-  x: number
-  y: number
-  name: string
-  subject: string
-}
-
-const PINS: TutorPin[] = [
-  { x: 22, y: 24, name: "Анна М.", subject: "Математика" },
-  { x: 71, y: 19, name: "Игорь П.", subject: "Физика" },
-  { x: 84, y: 50, name: "Света К.", subject: "Русский язык" },
-  { x: 30, y: 68, name: "Дмитрий В.", subject: "Английский" },
-  { x: 57, y: 78, name: "Ольга С.", subject: "Химия" },
-  { x: 13, y: 47, name: "Алексей Н.", subject: "История" },
-  { x: 47, y: 33, name: "Мария Л.", subject: "Биология" },
-  { x: 76, y: 86, name: "Пётр Ж.", subject: "Геометрия" },
-]
-
-const STATUSES = [
-  "Сканируем район…",
-  "Смотрим, кто свободен",
-  "Проверяем расписание",
-  "Сверяем предмет и класс",
-  "Готовим онлайн-кабинет",
-]
+import { subjectMatchesPin, TUTOR_PINS } from "@/lib/tutors"
 
 const BUILDINGS = [
   { x: 14, y: 18, w: 26, h: 16 },
@@ -54,20 +29,59 @@ const BUILDINGS = [
   { x: 258, y: 162, w: 34, h: 14 },
 ]
 
-export function TutorSearchMap() {
+function buildStatuses(subject?: string) {
+  const base = [
+    "Сканируем район…",
+    "Смотрим, кто свободен",
+    "Проверяем расписание",
+    "Сверяем специализацию",
+    "Готовим онлайн-кабинет",
+  ]
+
+  if (!subject) return base
+
+  return [
+    `Ищем педагога по ${subject}…`,
+    ...base.slice(1),
+  ]
+}
+
+export function TutorSearchMap({
+  highlightSubject,
+}: {
+  highlightSubject?: string
+}) {
+  const pins = useMemo(() => {
+    if (!highlightSubject) return TUTOR_PINS
+    const matched = TUTOR_PINS.filter((pin) =>
+      subjectMatchesPin(highlightSubject, pin.subject)
+    )
+    return matched.length > 0 ? matched : TUTOR_PINS
+  }, [highlightSubject])
+
+  const statuses = useMemo(
+    () => buildStatuses(highlightSubject),
+    [highlightSubject]
+  )
+
   const [revealed, setRevealed] = useState(0)
   const [statusIndex, setStatusIndex] = useState(0)
   const [checking, setChecking] = useState(0)
 
   useEffect(() => {
+    setRevealed(0)
+    setChecking(0)
+  }, [highlightSubject])
+
+  useEffect(() => {
     const reveal = setInterval(() => {
-      setRevealed((prev) => (prev >= PINS.length ? prev : prev + 1))
+      setRevealed((prev) => (prev >= pins.length ? prev : prev + 1))
     }, 1300)
     const status = setInterval(() => {
-      setStatusIndex((prev) => (prev + 1) % STATUSES.length)
+      setStatusIndex((prev) => (prev + 1) % statuses.length)
     }, 2400)
     const check = setInterval(() => {
-      setChecking((prev) => (prev + 1) % PINS.length)
+      setChecking((prev) => (prev + 1) % Math.max(pins.length, 1))
     }, 1500)
 
     return () => {
@@ -75,23 +89,30 @@ export function TutorSearchMap() {
       clearInterval(status)
       clearInterval(check)
     }
-  }, [])
+  }, [pins.length, statuses.length])
 
-  const visible = PINS.slice(0, revealed)
+  const visible = pins.slice(0, revealed)
   const activeCheck = revealed > 0 ? checking % revealed : -1
+  const matchedCount = highlightSubject
+    ? pins.filter((pin) => subjectMatchesPin(highlightSubject, pin.subject)).length
+    : revealed
 
   return (
     <div className="rounded-2xl border border-border/50 bg-card/80 p-4 backdrop-blur">
       <div className="mb-3 flex items-center justify-between gap-2">
         <div>
-          <h3 className="leading-tight font-semibold">Ищем педагога рядом</h3>
+          <h3 className="leading-tight font-semibold">
+            {highlightSubject
+              ? `Ищем педагога по ${highlightSubject}`
+              : "Ищем педагога рядом"}
+          </h3>
           <p className="text-xs text-muted-foreground">
             Дежурный пул специалистов
           </p>
         </div>
         <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary">
           <Radar className="size-3" />
-          {revealed} рядом
+          {highlightSubject ? matchedCount : revealed} рядом
         </span>
       </div>
 
@@ -214,6 +235,10 @@ export function TutorSearchMap() {
         <AnimatePresence>
           {visible.map((pin, index) => {
             const isChecking = index === activeCheck
+            const isMatch =
+              !highlightSubject ||
+              subjectMatchesPin(highlightSubject, pin.subject)
+
             return (
               <motion.div
                 key={pin.name}
@@ -246,9 +271,11 @@ export function TutorSearchMap() {
                     )}
                     <div
                       className={`flex size-7 items-center justify-center rounded-full text-white shadow-md ring-2 transition-colors ${
-                        isChecking
+                        isChecking && isMatch
                           ? "bg-[#bdf829] text-[#1c2a00] ring-[#bdf829]/40"
-                          : "bg-accent ring-white/40"
+                          : isMatch
+                            ? "bg-accent ring-white/40"
+                            : "bg-muted-foreground/60 ring-white/20"
                       }`}
                     >
                       <GraduationCap className="size-3.5" />
@@ -273,14 +300,14 @@ export function TutorSearchMap() {
               transition={{ duration: 0.25 }}
               className="text-xs font-medium text-white/90"
             >
-              {STATUSES[statusIndex]}
+              {statuses[statusIndex]}
             </motion.span>
           </AnimatePresence>
-          {activeCheck >= 0 && (
+          {activeCheck >= 0 && visible[activeCheck] ? (
             <span className="truncate text-[11px] text-muted-foreground">
               {visible[activeCheck].name}
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

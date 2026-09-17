@@ -12,8 +12,9 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { pressScaleClass } from "@/lib/press-scale"
 import { cn } from "@/lib/utils"
-
+import { formatRuPhone, isValidRuPhone } from "@/lib/phone"
 const STORAGE_KEY = "uchi-notify-contact"
 
 type NotifyContact = {
@@ -31,36 +32,6 @@ function readSaved(): NotifyContact | null {
   } catch {
     return null
   }
-}
-
-function nationalDigits(value: string) {
-  let digits = value.replace(/\D/g, "")
-  if (digits.startsWith("8")) {
-    digits = `7${digits.slice(1)}`
-  }
-  if (digits.length > 0 && !digits.startsWith("7")) {
-    digits = `7${digits}`
-  }
-  return digits.slice(0, 11)
-}
-
-function formatRuPhone(value: string) {
-  const digits = nationalDigits(value)
-  if (!digits) return ""
-
-  const rest = digits.slice(1)
-  let formatted = "+7"
-  if (rest.length === 0) return formatted
-  formatted += ` (${rest.slice(0, 3)}`
-  if (rest.length >= 3) formatted += ")"
-  if (rest.length > 3) formatted += ` ${rest.slice(3, 6)}`
-  if (rest.length > 6) formatted += `-${rest.slice(6, 8)}`
-  if (rest.length > 8) formatted += `-${rest.slice(8, 10)}`
-  return formatted
-}
-
-function isValidRuPhone(value: string) {
-  return nationalDigits(value).length === 11
 }
 
 export function NotifyContactForm({ className }: { className?: string }) {
@@ -89,7 +60,7 @@ export function NotifyContactForm({ className }: { className?: string }) {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(contact))
     setSubmitted(true)
     toast.success("Номер сохранён", {
-      description: "Пришлём уведомление на телефон, когда педагог будет свободен.",
+      description: "Пришлём SMS, когда педагог будет свободен.",
     })
   }
 
@@ -97,15 +68,17 @@ export function NotifyContactForm({ className }: { className?: string }) {
     return (
       <div
         className={cn(
-          "flex w-full flex-col items-center rounded-2xl border border-primary/20 bg-primary/10 p-5 text-center",
+          "flex w-full flex-col items-center rounded-3xl bg-[#f5f5f8] p-6 text-center text-landing-ink",
           className
         )}
       >
-        <div className="rounded-full bg-primary/15 p-3 text-primary">
+        <div className="rounded-full bg-landing-purple/15 p-3 text-landing-purple">
           <Check className="size-5" />
         </div>
-        <p className="mt-3 font-semibold">Пришлём уведомление на телефон</p>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <p className="mt-3 font-sans text-[16px] font-bold">
+          Пришлём уведомление на телефон
+        </p>
+        <p className="mt-1 font-sans text-sm text-landing-ink/70">
           Напишем на {phone}, как только освободится педагог.
         </p>
       </div>
@@ -116,23 +89,23 @@ export function NotifyContactForm({ className }: { className?: string }) {
     <form
       onSubmit={handleSubmit}
       className={cn(
-        "w-full rounded-2xl border border-border/50 bg-card/80 p-5 text-left backdrop-blur",
+        "w-full rounded-3xl bg-[#f5f5f8] p-6 text-left text-landing-ink",
         className
       )}
     >
-      <p className="font-semibold">Оставь контакты</p>
-      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-        Пришлём уведомление на телефон, если педагог будет занят.
+      <p className="font-sans text-[16px] font-bold">Оставить контакты</p>
+      <p className="mt-1 font-sans text-sm leading-relaxed text-landing-ink/70">
+        Пришлём SMS, когда освободится педагог по вашему предмету.
       </p>
 
       <FieldGroup className="mt-5 gap-4">
         <Field>
-          <FieldLabel htmlFor="notify-name">Имя</FieldLabel>
+          <FieldLabel htmlFor="notify-name">Ваше имя</FieldLabel>
           <Input
             id="notify-name"
             name="name"
-            autoComplete="given-name"
-            placeholder="Как к тебе обращаться"
+            autoComplete="name"
+            placeholder="Как к вам обращаться"
             value={name}
             onChange={(event) => setName(event.target.value)}
             className="h-11"
@@ -157,7 +130,9 @@ export function NotifyContactForm({ className }: { className?: string }) {
             className="h-11"
           />
           {phoneError ? (
-            <FieldError>Введи номер, чтобы мы смогли написать в SMS</FieldError>
+            <FieldError>
+              Введите номер, чтобы мы смогли написать в SMS
+            </FieldError>
           ) : (
             <FieldDescription>
               Только телефон — на него придёт уведомление.
@@ -169,7 +144,10 @@ export function NotifyContactForm({ className }: { className?: string }) {
       <Button
         type="submit"
         size="lg"
-        className="mt-5 h-12 w-full rounded-full text-base font-semibold"
+        className={cn(
+          "mt-5 h-14 w-full rounded-lg bg-landing-pink text-base font-bold text-white hover:bg-landing-pink",
+          pressScaleClass
+        )}
       >
         <Bell data-icon="inline-start" />
         Прислать уведомление
