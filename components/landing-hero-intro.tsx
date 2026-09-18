@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion"
 
 import { LandingCtaButton } from "@/components/landing-cta-button"
+import { LandingShareButton } from "@/components/landing-share-button"
 
 export function LandingHeroIntro() {
   const reduced = Boolean(useReducedMotion())
@@ -58,8 +59,12 @@ export function LandingHeroIntro() {
         </motion.div>
       </div>
 
-      <motion.div {...fadeUp(0.3)}>
-        <LandingCtaButton fullWidth className="relative z-10 md:w-auto" />
+      <motion.div
+        className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-start"
+        {...fadeUp(0.3)}
+      >
+        <LandingCtaButton className="relative z-10 min-w-0 flex-1 md:w-auto md:flex-initial" />
+        <LandingShareButton />
       </motion.div>
     </>
   )
