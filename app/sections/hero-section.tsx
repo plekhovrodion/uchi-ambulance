@@ -34,6 +34,22 @@ export function HeroSection() {
                 priority
                 className="-scale-x-100 object-contain object-bottom md:object-cover md:object-bottom"
               />
+              <div className="absolute top-[8%] right-[6%] hidden origin-center rotate-4 flex-col items-center md:flex xl:top-[12%] xl:right-[18%]">
+                <p className="bg-[#ffffa3] px-2 py-0.5 font-heading text-[40px] leading-[0.9] text-landing-ink uppercase">
+                  Безлимит
+                </p>
+                <p className="bg-[#ffffa3] px-4 pb-0.5 font-sans text-[16px] leading-normal text-landing-ink">
+                  занятий
+                </p>
+              </div>
+              <div className="absolute top-[52%] left-[4%] hidden origin-center -rotate-[14deg] flex-col items-center md:flex xl:top-[58%] xl:left-[12%] xl:-rotate-4">
+                <p className="bg-[#ffffa3] px-2 py-0.5 font-heading text-[40px] leading-[0.9] text-landing-ink uppercase">
+                  всегда
+                </p>
+                <p className="bg-[#ffffa3] px-4 pb-0.5 font-sans text-[16px] leading-normal text-landing-ink">
+                  под рукой
+                </p>
+              </div>
             </div>
           </div>
         </div>

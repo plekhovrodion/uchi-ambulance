@@ -8,7 +8,7 @@ export type TutorProfile = {
   photo: string
 }
 
-const SEARCH_AVATARS = [
+export const RADAR_AVATARS = [
   "/search/avatars/tutor-1.png",
   "/search/avatars/tutor-2.png",
   "/search/avatars/tutor-3.png",
@@ -17,7 +17,11 @@ const SEARCH_AVATARS = [
   "/search/avatars/tutor-6.png",
   "/search/avatars/tutor-7.png",
   "/search/avatars/tutor-8.png",
+  "/search/avatars/tutor-9.png",
+  "/search/avatars/tutor-10.png",
 ] as const
+
+const SEARCH_AVATARS = RADAR_AVATARS
 
 export const SEARCH_TUTORS: TutorProfile[] = [
   {

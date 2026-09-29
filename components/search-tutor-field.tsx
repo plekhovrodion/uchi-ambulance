@@ -1,10 +1,9 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react"
 import Image from "next/image"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import type { TutorProfile } from "@/lib/tutors"
-import { SEARCH_TUTORS } from "@/lib/tutors"
+import { RADAR_AVATARS } from "@/lib/tutors"
 import { cn } from "@/lib/utils"
 
 const FIRST_CYCLE_MS = 400
@@ -33,22 +32,39 @@ const AVATAR_BACKGROUNDS = [
 ] as const
 
 const PERIPHERAL_SLOTS_MOBILE = [
-  "left-[35.4%] top-[13.6%]",
-  "left-[23.8%] top-[35.7%]",
-  "left-[69.8%] top-[35.7%]",
-  "right-[28.6%] top-[17.9%]",
+  { left: "33.9%", top: "16%" },
+  { left: "15.8%", top: "35%" },
+  { left: "84%", top: "35%" },
+  { left: "76.7%", top: "19%" },
 ] as const
 
 const PERIPHERAL_SLOTS_DESKTOP = [
-  "left-[26%] top-[11%] lg:left-[28%] lg:top-[12%]",
-  "left-[63%] top-[13%] lg:left-[64%] lg:top-[13%]",
-  "left-[73%] top-[51%] lg:left-[74%] lg:top-[52%]",
+  { left: "40.3%", top: "18%" },
+  { left: "23%", top: "38%" },
+  { left: "72%", top: "30%" },
+  { left: "58.1%", top: "26%" },
 ] as const
+
+type RadarFace = { photo: string }
+
+const RADAR_FACES: RadarFace[] = RADAR_AVATARS.map((photo) => ({ photo }))
 
 type CenterPhase = "asking" | "declined"
 
+function faceStyle(
+  left: string,
+  top: string,
+  radius: number,
+  bottomClearance: number
+): CSSProperties {
+  return {
+    left: `clamp(${radius}px, ${left}, calc(100% - ${radius}px))`,
+    top: `clamp(${72 + radius}px, ${top}, calc(100% - ${bottomClearance + radius}px))`,
+  }
+}
+
 function avatarBackground(photo: string) {
-  const match = photo.match(/tutor-(\d)\.png/)
+  const match = photo.match(/tutor-(\d+)\.png/)
   const index = match ? Number(match[1]) - 1 : 0
   return AVATAR_BACKGROUNDS[index % AVATAR_BACKGROUNDS.length]
 }
@@ -90,14 +106,14 @@ export function SearchTutorField({
   }, [clock])
 
   const centerPhase = centerPhaseForAge(cycleAge)
-  const centerTutor = SEARCH_TUTORS[cycleIndex % SEARCH_TUTORS.length]
+  const centerTutor = RADAR_FACES[cycleIndex % RADAR_FACES.length]
   const declineReply = DECLINE_REPLIES[cycleIndex % DECLINE_REPLIES.length]
 
   const peripheralTutorsMobile = useMemo(
     () =>
       PERIPHERAL_SLOTS_MOBILE.map((slot, index) => ({
         slot,
-        tutor: SEARCH_TUTORS[(cycleIndex + index + 1) % SEARCH_TUTORS.length],
+        tutor: RADAR_FACES[(cycleIndex + index + 1) % RADAR_FACES.length],
       })),
     [cycleIndex]
   )
@@ -106,7 +122,7 @@ export function SearchTutorField({
     () =>
       PERIPHERAL_SLOTS_DESKTOP.map((slot, index) => ({
         slot,
-        tutor: SEARCH_TUTORS[(cycleIndex + index + 1) % SEARCH_TUTORS.length],
+        tutor: RADAR_FACES[(cycleIndex + index + 1) % RADAR_FACES.length],
       })),
     [cycleIndex]
   )
@@ -126,46 +142,42 @@ export function SearchTutorField({
       </div>
 
       <motion.div
-        className="pointer-events-none absolute inset-x-0 top-0 z-[15] md:inset-0"
+        className="pointer-events-none absolute inset-0 z-[15]"
         aria-hidden
         animate={{ opacity: avatarsVisible ? 1 : 0 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
       >
-        <div className={sceneClassName}>
-          <div className="relative aspect-square w-full md:aspect-auto">
-            <div className="absolute inset-0 md:relative md:size-[min(108vmin,920px)]">
-              {peripheralTutorsMobile.map(({ slot, tutor }, index) => (
-                <PeripheralAvatar
-                  key={`mobile-${slot}-${index}`}
-                  tutor={tutor}
-                  className={cn(slot, "md:hidden")}
-                  sizeClass="size-12"
-                />
-              ))}
+        {peripheralTutorsMobile.map(({ slot, tutor }, index) => (
+          <PeripheralAvatar
+            key={`mobile-${slot.left}-${slot.top}-${index}`}
+            tutor={tutor}
+            className="md:hidden"
+            sizeClass="size-12"
+            style={faceStyle(slot.left, slot.top, 24, 220)}
+          />
+        ))}
 
-              {peripheralTutorsDesktop.map(({ slot, tutor }, index) => (
-                <PeripheralAvatar
-                  key={`desktop-${slot}-${index}`}
-                  tutor={tutor}
-                  className={cn(slot, "hidden md:block")}
-                  sizeClass="size-[78px]"
-                />
-              ))}
+        {peripheralTutorsDesktop.map(({ slot, tutor }, index) => (
+          <PeripheralAvatar
+            key={`desktop-${slot.left}-${slot.top}-${index}`}
+            tutor={tutor}
+            className="hidden md:block"
+            sizeClass="size-20"
+            style={faceStyle(slot.left, slot.top, 40, 200)}
+          />
+        ))}
 
-              <AnimatePresence mode="wait">
-                <CenterTutorPin
-                  key={cycleIndex}
-                  tutor={centerTutor}
-                  phase={centerPhase}
-                  declineAge={Math.max(0, cycleAge - ASK_MS)}
-                  reply={declineReply}
-                  paused={paused}
-                  reduced={reduced}
-                />
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
+        <AnimatePresence mode="wait">
+          <CenterTutorPin
+            key={cycleIndex}
+            tutor={centerTutor}
+            phase={centerPhase}
+            declineAge={Math.max(0, cycleAge - ASK_MS)}
+            reply={declineReply}
+            paused={paused}
+            reduced={reduced}
+          />
+        </AnimatePresence>
       </motion.div>
     </>
   )
@@ -209,7 +221,7 @@ function AvatarCircle({
   sizeClass,
   className,
 }: {
-  tutor: TutorProfile
+  tutor: RadarFace
   sizeClass: string
   className?: string
 }) {
@@ -237,13 +249,18 @@ function PeripheralAvatar({
   tutor,
   className,
   sizeClass,
+  style,
 }: {
-  tutor: TutorProfile
+  tutor: RadarFace
   className: string
   sizeClass: string
+  style: CSSProperties
 }) {
   return (
-    <div className={cn("absolute -translate-x-1/2 -translate-y-1/2", className)}>
+    <div
+      className={cn("absolute -translate-x-1/2 -translate-y-1/2", className)}
+      style={style}
+    >
       <AvatarCircle tutor={tutor} sizeClass={sizeClass} />
     </div>
   )
@@ -257,7 +274,7 @@ function CenterTutorPin({
   paused,
   reduced,
 }: {
-  tutor: TutorProfile
+  tutor: RadarFace
   phase: CenterPhase
   declineAge: number
   reply: string
@@ -275,7 +292,7 @@ function CenterTutorPin({
 
   return (
     <motion.div
-      className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center"
+      className="absolute left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center top-[calc(min(155vw,560px)/2)] md:top-[calc(50%-60px)]"
       initial={{ opacity: 1, scale: 0.92 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.88, y: -12 }}

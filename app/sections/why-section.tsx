@@ -7,22 +7,22 @@ import { cn } from "@/lib/utils"
 
 const cards = [
   {
-    title: "Дешевле в 4 раза",
-    body: "Одно занятие с репетитором от 1400 ₽. Экспресс-репетитор от 250 ₽ за занятие",
+    title: "Репетитор подключится за 5 минут",
+    body: "Занимайся когда удобно",
+    image: "/landing/why-3.avif",
+    dark: true,
+  },
+  {
+    title: "Подготовишься к контрольной",
+    body: "Повторишь тему и потренируешься",
     image: "/landing/why-1.avif",
     dark: false,
   },
   {
-    title: "Без ожидания",
-    body: "Репетитор подключится за 5 минут",
+    title: "Разберешься в сложной теме",
+    body: "Поймешь то, что пропустил на уроке",
     image: "/landing/why-2.avif",
     dark: false,
-  },
-  {
-    title: "Свободный график",
-    body: "Занимайся когда удобно",
-    image: "/landing/why-3.avif",
-    dark: true,
   },
 ] as const
 

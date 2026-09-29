@@ -235,6 +235,8 @@
   z-index: 0;
   background: url("/search/radar-reticle.svg") center / 100% 100% no-repeat;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 18%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 18%, transparent 78%);
 }
 
 @media (min-width: 768px) {

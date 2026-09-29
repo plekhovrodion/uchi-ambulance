@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="relative z-[60] -mt-6 overflow-hidden rounded-t-[24px] bg-white px-5 pt-16 pb-[152px] md:px-10 xl:px-16">
+    <footer className="relative z-50 overflow-hidden bg-white px-5 pt-16 pb-[152px] md:px-10 xl:px-16">
       <div className="relative mx-auto flex w-full max-w-[1152px] flex-col items-center gap-6 md:flex-row md:items-center md:justify-between">
         <Image
           src="/landing/footer-logo.svg"

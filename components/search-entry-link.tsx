@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 const TRANSITION_MS = 480
 
 export function SearchEntryLink({
-  href = "/search/loading",
+  href = "/search/start",
   className,
   children,
 }: {

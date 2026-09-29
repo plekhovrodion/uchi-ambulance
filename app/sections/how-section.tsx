@@ -5,7 +5,7 @@ import { LandingInView } from "@/components/landing-in-view"
 const steps = [
   {
     title: "запусти поиск репетитора",
-    body: "Подключим свободного репетитора, обычно меньше минуты",
+    body: "Подключим свободного репетитора, обычно поиск занимает 5 минут",
     images: ["/landing/how-1.avif"],
   },
   {
@@ -14,7 +14,7 @@ const steps = [
     images: ["/landing/how-2-base.avif", "/landing/how-2.avif"],
   },
   {
-    title: "разбери вместе с репетитором",
+    title: "Выполни вместе с репетитором",
     body: "Репетитор задаст наводящие вопросы и объяснит ход решения, чтобы разбирать следующие задания было легко",
     images: ["/landing/how-2-base.avif", "/landing/how-3.avif"],
   },

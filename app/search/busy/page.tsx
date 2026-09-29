@@ -2,7 +2,6 @@
 
 import { SearchBusyIcon } from "@/components/search-busy-icon"
 import { SearchStageShell } from "@/components/search-stage-shell"
-import { NotifyContactForm } from "@/components/notify-contact-form"
 
 export default function SearchBusyPage() {
   return (
@@ -18,7 +17,6 @@ export default function SearchBusyPage() {
             подключиться
           </p>
         </div>
-        <NotifyContactForm />
       </div>
     </SearchStageShell>
   )

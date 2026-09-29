@@ -9,10 +9,12 @@ export function SearchStageShell({
   children,
   background,
   contentClassName,
+  overlay,
 }: {
   children: ReactNode
   background?: ReactNode
   contentClassName?: string
+  overlay?: ReactNode
 }) {
   return (
     <main className="relative min-h-dvh overflow-hidden bg-white text-landing-ink">
@@ -54,6 +56,8 @@ export function SearchStageShell({
       >
         {children}
       </div>
+
+      <div className="pointer-events-none fixed inset-0 z-50">{overlay}</div>
     </main>
   )
 }
